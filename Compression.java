@@ -21,6 +21,47 @@ public class Compression {
         private static FileOutputStream fos = null;
         private static DataOutputStream dos = null;
 
+        public static void main(String[] args) {
+            String inputPath = "input.txt";
+            Scanner scInputFile = null;
+            Scanner scInputLine = null;
+            int currentLines = 0;
+            dic = new ArrayList<String>();
+            calculateNumberOfWords(inputPath);
+            initializeOutputFile("compressed.bin");
+            try {
+                scInputFile = new Scanner(new File(inputPath));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (scInputFile.hasNextLine()) {
+                scInputLine = new Scanner(scInputFile.nextLine());
+                while (scInputLine.hasNext()) {
+
+                    String s = scInputLine.next();
+                    int index = getIndexFromDic(s);
+                    if (index == dic.size()) {
+                        dic.add(s);
+                    }
+                    appendIndexToCompressedFile(index);
+                }
+                currentLines++;
+                if (currentLines < numLinesInInputFile) {
+                    int index = getIndexFromDic("\n");
+                    if (index == dic.size()) {
+                        dic.add("\n");
+                    }
+                    appendIndexToCompressedFile(index);
+                }
+            }
+            printDictionary();
+            System.out.print(dic.size());
+            scInputLine.close();
+            scInputFile.close();
+            appendDicToCompressedFile();
+            closeOutputFile();
+        }
+
         /* print all String in Dictionary */
         private static void printDictionary() {
             System.out.println("---- printing words from Dictionary ----");
