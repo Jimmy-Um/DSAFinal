@@ -11,19 +11,6 @@
 import java.io.*;
 import java.util.*;
 public class Compression {
-/*
-* input:
-* The input to this program is a text file that the use would like to compress. In this example, the file is
-"input.txt"
-*
-*
-* output:
-* The compressed file of "input.txt". In this example, the compressed file is "compressed.bin"
-*/
-
-import java.io.*;
-import java.util.*;
-    public class FileCompress {
         /* ArrayList String type that saves all new String */
         private static ArrayList<String> dic = null;
 
