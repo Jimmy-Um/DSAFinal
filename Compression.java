@@ -29,6 +29,8 @@ public class Compression {
             }
             System.out.println("\n---- end of Dictionary ----");
         }
+
+
         /* return matched index. return value ranges from 0 to dic.size() - 1 if there is a match.
          * return dic.size() means there is no match */
         private static int getIndexFromDic(String s) {
@@ -42,6 +44,8 @@ public class Compression {
             }
             return i;
         }
+
+
         private static void calculateNumberOfWords(String fileName) {
             Scanner scInputFile = null;
             Scanner scInputLine = null;
@@ -63,6 +67,8 @@ public class Compression {
             scInputLine.close();
             scInputFile.close();
         }
+
+
         private static void initializeOutputFile(String fileName) {
             File compressedFile = new File(fileName);
             if (compressedFile.delete() == true) {
@@ -85,6 +91,45 @@ public class Compression {
             /* first 4-bytes is number of words in input file */
             try {
                 dos.writeInt(numWordsInInputFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private static void appendIndexToCompressedFile(int index) {
+            try {
+                /* each index entry size is 2-bytes */
+                dos.writeShort(index);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        private static void appendDicToCompressedFile() {
+            int i;
+            String s;
+            for(i = 0; i < dic.size(); i++) {
+                s = dic.get(i);
+                try {
+                    dos.writeByte(s.length());
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                try {
+                    dos.writeBytes(s);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        private static void closeOutputFile() {
+            try {
+                dos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
