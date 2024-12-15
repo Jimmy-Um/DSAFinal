@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DSAFinal.iml" filepath="$PROJECT_DIR$/.idea/DSAFinal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DSAFinal.iml" filepath="$PROJECT_DIR$/DSAFinal.iml" />
     </modules>
   </component>
 </project>
