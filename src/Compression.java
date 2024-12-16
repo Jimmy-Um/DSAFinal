@@ -10,7 +10,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Compression {
+public class Compression implements InitializeFile {
 
     /**
      * ArrayList to store unique strings (dictionary).
@@ -34,13 +34,15 @@ public class Compression {
     private static DataOutputStream dos = null;
 
     public static void main(String[] args) {
+        Compression c = new Compression();
+
         String inputPath = "input.txt";
         Scanner scInputFile = null;
         Scanner scInputLine = null;
         int currentLines = 0;
         dic = new ArrayList<String>();
         calculateNumberOfWords(inputPath);
-        initializeOutputFile("compressed.bin");
+        c.createNewFile("compressed.bin");
         try {
             scInputFile = new Scanner(new File(inputPath));
         }
@@ -76,8 +78,14 @@ public class Compression {
         closeOutputFile();
     }
 
+    public Compression() {}
+
     /**
      * Prints all strings stored in the dictionary.
+     *
+     * Time Complexity:
+     * Big O: O(dic.size()) - O(n)
+     * Big Omega: Ω(dic.size()) - Ω(n)
      */
     private static void printDictionary() {
         System.out.println("---- printing words from Dictionary ----");
@@ -93,6 +101,10 @@ public class Compression {
      *
      * @param s The string to search for in the dictionary.
      * @return The index of the string in the dictionary, or the size of the dictionary if not found.
+     *
+     * Time Complexity:
+     * Big O: O(dic.size()) - O(n)
+     * Big Omega: Ω(1)
      */
     private static int getIndexFromDic(String s) {
         int i;
@@ -140,7 +152,8 @@ public class Compression {
      *
      * @param fileName The name of the output file to create.
      */
-    private static void initializeOutputFile(String fileName) {
+    @Override
+    public void createNewFile(String fileName) {
         File compressedFile = new File(fileName);
         if (compressedFile.delete()) {
             System.out.println(fileName + " exists, deleting now.");

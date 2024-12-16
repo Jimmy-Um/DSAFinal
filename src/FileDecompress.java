@@ -10,7 +10,7 @@
 import java.io.*;
 import java.util.*;
 
-public class FileDecompress {
+public class FileDecompress extends Dictionary implements InitializeFile {
 
     /**
      * Total number of index entries in the input compressed file.
@@ -50,24 +50,28 @@ public class FileDecompress {
     private static int inputFileSize = 0;
 
     public static void main(String[] args) {
+        FileDecompress d = new FileDecompress();
+
         String inputPath = "compressed.bin";
         dic = new ArrayList<String>();
         entries = new ArrayList<Short>();
         initializeOutputFile("decompressed.txt");
-        initializeInputFile(inputPath);
+        d.createNewFile(inputPath);
         numTotalIndex = readFromDisInt();
         System.out.println("Number of words to construct: " + numTotalIndex);
         for (int i = 0; i < numTotalIndex; i++) {
             short e = readFromDisShort();
             entries.add(e);
         }
-        buildDictionary();
-        printDictionary(); // Debugging output.
+        d.buildDictionary();
+        printDictionary();
         convertEntriesToWords();
 
         closeInputFile();
         closeOutputFile();
     }
+
+    public FileDecompress() {}
 
     /**
      * Converts the list of index entries to words using the dictionary and writes them to the output file.
@@ -127,7 +131,8 @@ public class FileDecompress {
     /**
      * Reconstructs the dictionary from the compressed file.
      */
-    private static void buildDictionary() {
+    @Override
+    public void buildDictionary() {
         int len;
         byte[] bytes = new byte[256];
         while (inputFilePointer < inputFileSize) {
@@ -169,7 +174,8 @@ public class FileDecompress {
      *
      * @param fileName The name of the input file.
      */
-    private static void initializeInputFile(String fileName) {
+    @Override
+    public void createNewFile(String fileName) {
         try {
             fis = new FileInputStream(fileName);
         } catch (Exception e) {
