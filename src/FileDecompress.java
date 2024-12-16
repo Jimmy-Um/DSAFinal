@@ -63,7 +63,7 @@ public class FileDecompress extends Dictionary implements InitializeFile {
             short e = readFromDisShort();
             entries.add(e);
         }
-        Dictionary.getDic();
+        System.out.println(Dictionary.getDic());
         d.buildDictionary();
         printDictionary();
         convertEntriesToWords();
@@ -71,8 +71,6 @@ public class FileDecompress extends Dictionary implements InitializeFile {
         closeInputFile();
         closeOutputFile();
     }
-
-    public FileDecompress() {}
 
     /**
      * Converts the list of index entries to words using the dictionary and writes them to the output file.

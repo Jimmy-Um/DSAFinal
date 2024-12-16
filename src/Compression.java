@@ -73,13 +73,11 @@ public class Compression implements InitializeFile {
         }
         printDictionary();
         System.out.print(dic.size());
-        scInputLine.close();
-        scInputFile.close();
+        //scInputLine.close();
+        //scInputFile.close();
         appendDicToCompressedFile();
         closeOutputFile();
     }
-
-    public Compression() {}
 
     /**
      * Prints all strings stored in the dictionary.
@@ -144,8 +142,8 @@ public class Compression implements InitializeFile {
             numLinesInInputFile++;
         }
         numWordsInInputFile--;
-        scInputLine.close();
-        scInputFile.close();
+        //scInputLine.close();
+        //scInputFile.close();
     }
 
     /**
