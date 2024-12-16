@@ -63,6 +63,7 @@ public class FileDecompress extends Dictionary implements InitializeFile {
             short e = readFromDisShort();
             entries.add(e);
         }
+        Dictionary.getDic();
         d.buildDictionary();
         printDictionary();
         convertEntriesToWords();

@@ -58,6 +58,7 @@ public class Compression implements InitializeFile {
                 int index = getIndexFromDic(s);
                 if (index == dic.size()) {
                     dic.add(s);
+                    Dictionary.addDic(s, index);
                 }
                 appendIndexToCompressedFile(index);
             }
